@@ -12,12 +12,13 @@
           (t.AppModule = void 0);
         const s = r(3),
           n = r(4),
-          c = r(5),
-          p = r(6),
+          p = r(5),
+          c = r(6),
           l = r(7),
           d = r(8),
-          g = r(10);
-        let h = class AppModule {
+          g = r(10),
+          h = new (r(28).ProxyAgent)();
+        let u = class AppModule {
           constructor(e, t, r) {
             (this.program = e),
               (this.versionManager = t),
@@ -36,12 +37,18 @@
               });
           }
         };
-        (t.AppModule = h),
-          (t.AppModule = h =
+        (t.AppModule = u),
+          (t.AppModule = u =
             s.__decorate(
               [
                 (0, n.Module)({
-                  imports: [c.HttpModule],
+                  imports: [
+                    p.HttpModule.register({
+                      proxy: !1,
+                      httpAgent: h,
+                      httpsAgent: h,
+                    }),
+                  ],
                   controllers: [d.VersionManagerController],
                   providers: [
                     g.UIService,
@@ -51,7 +58,7 @@
                     g.VersionManagerService,
                     {
                       provide: l.COMMANDER_PROGRAM,
-                      useValue: new p.Command('openapi-generator-cli')
+                      useValue: new c.Command('openapi-generator-cli')
                         .helpOption(!1)
                         .usage('<command> [<args>]'),
                     },
@@ -60,7 +67,7 @@
                 }),
                 s.__param(0, (0, n.Inject)(l.COMMANDER_PROGRAM)),
                 s.__metadata('design:paramtypes', [
-                  'function' == typeof (i = void 0 !== p.Command && p.Command)
+                  'function' == typeof (i = void 0 !== c.Command && c.Command)
                     ? i
                     : Object,
                   'function' ==
@@ -76,7 +83,7 @@
                     : Object,
                 ]),
               ],
-              h
+              u
             ));
       },
       (e) => {
@@ -102,8 +109,8 @@
         Object.defineProperty(t, '__esModule', { value: !0 }),
           (t.VersionManagerController = void 0);
         const n = r(3),
-          c = r(4),
-          p = r(7),
+          p = r(4),
+          c = r(7),
           l = r(6),
           d = n.__importDefault(r(9)),
           g = r(10);
@@ -214,11 +221,11 @@
           (t.VersionManagerController = h =
             n.__decorate(
               [
-                (0, c.Controller)(),
-                n.__param(0, (0, c.Inject)(p.LOGGER)),
-                n.__param(1, (0, c.Inject)(p.COMMANDER_PROGRAM)),
+                (0, p.Controller)(),
+                n.__param(0, (0, p.Inject)(c.LOGGER)),
+                n.__param(1, (0, p.Inject)(c.COMMANDER_PROGRAM)),
                 n.__metadata('design:paramtypes', [
-                  'function' == typeof (i = void 0 !== p.LOGGER && p.LOGGER)
+                  'function' == typeof (i = void 0 !== c.LOGGER && c.LOGGER)
                     ? i
                     : Object,
                   'function' == typeof (o = void 0 !== l.Command && l.Command)
@@ -314,8 +321,8 @@
           a = r(4),
           s = o.__importStar(r(15)),
           n = r(7),
-          c = r(16),
-          p = o.__importStar(r(17));
+          p = r(16),
+          c = o.__importStar(r(17));
         let l = class ConfigService {
           get useDocker() {
             return this.get('generator-cli.useDocker', !1);
@@ -339,20 +346,20 @@
               });
           }
           get(e, t) {
-            return (0, c.get)(this.read(), e, t);
+            return (0, p.get)(this.read(), e, t);
           }
           has(e) {
-            return (0, c.has)(this.read(), e);
+            return (0, p.has)(this.read(), e);
           }
           set(e, t) {
-            return this.write((0, c.set)(this.read(), e, t)), this;
+            return this.write((0, p.set)(this.read(), e, t)), this;
           }
           read() {
             return (
-              p.ensureFileSync(this.configFile),
-              (0, c.merge)(
+              c.ensureFileSync(this.configFile),
+              (0, p.merge)(
                 this.defaultConfig,
-                p.readJSONSync(this.configFile, {
+                c.readJSONSync(this.configFile, {
                   throws: !1,
                   encoding: 'utf8',
                 })
@@ -360,7 +367,7 @@
             );
           }
           write(e) {
-            p.writeJSONSync(this.configFile, e, {
+            c.writeJSONSync(this.configFile, e, {
               encoding: 'utf8',
               spaces: e.spaces || 2,
             });
@@ -396,8 +403,8 @@
           (t.GeneratorService = void 0);
         const s = r(3),
           n = r(4),
-          c = r(16),
-          p = s.__importDefault(r(19)),
+          p = r(16),
+          c = s.__importDefault(r(19)),
           l = s.__importStar(r(15)),
           d = s.__importStar(r(17)),
           g = s.__importStar(r(20)),
@@ -435,7 +442,7 @@
                       )}" org.openapitools.codegen.OpenAPIGenerator`
                     : `-jar "${i}"`;
                 return ['java', process.env.JAVA_OPTS, o, 'generate', t]
-                  .filter(c.isString)
+                  .filter(p.isString)
                   .join(' ');
               }),
               (this.isWin = () => 'win32' === process.platform);
@@ -468,7 +475,7 @@
                     !1)
                 ),
               o = [],
-              a = (0, c.flatten)(
+              a = (0, p.flatten)(
                 i.map(([t, i]) => {
                   const { glob: a, disabled: s, ...n } = i;
                   if (!a)
@@ -495,7 +502,7 @@
                   try {
                     return (
                       this.printResult(
-                        await (0, p.default)(a, { maxProcesses: 10 })
+                        await (0, c.default)(a, { maxProcesses: 10 })
                       ),
                       !0
                     );
@@ -516,7 +523,7 @@
           }
           printResult(e) {
             this.logger.log(
-              (0, c.sortBy)(e, 'command.name')
+              (0, p.sortBy)(e, 'command.name')
                 .map(({ exitCode: e, command: t }) => {
                   const r = e > 0;
                   return [
@@ -532,9 +539,9 @@
               a = i ? l.resolve(e, i) : String(t.inputSpec),
               s = l.extname(a),
               n = l.basename(a, s),
-              p = {
+              c = {
                 name: n,
-                Name: (0, c.upperFirst)(n),
+                Name: (0, p.upperFirst)(n),
                 cwd: e,
                 base: l.basename(a),
                 dir: i && l.dirname(a),
@@ -545,7 +552,7 @@
               },
               g = Object.entries({ inputSpec: a, ...t })
                 .map(([t, r]) => {
-                  const i = (0, c.kebabCase)(t),
+                  const i = (0, p.kebabCase)(t),
                     a = (() => {
                       switch (typeof r) {
                         case 'object':
@@ -559,7 +566,7 @@
                           return;
                         default:
                           return this.configService.useDocker &&
-                            ((r = this.replacePlaceholders(p, r)),
+                            ((r = this.replacePlaceholders(c, r)),
                             'output' === i && d.ensureDirSync(r),
                             d.existsSync(r))
                             ? ((o[`/local/${i}`] = l.resolve(e, r)),
@@ -570,7 +577,7 @@
                   return void 0 === a ? `--${i}` : `--${i}=${a}`;
                 })
                 .join(' ');
-            return this.cmd(r, this.replacePlaceholders(p, g), o);
+            return this.cmd(r, this.replacePlaceholders(c, g), o);
           }
           replacePlaceholders(e, t) {
             return Object.entries(e)
@@ -618,8 +625,8 @@
           (t.VersionManagerService = void 0);
         const s = r(3),
           n = r(4),
-          c = r(5),
-          p = r(23),
+          p = r(5),
+          c = r(23),
           l = r(16),
           d = s.__importStar(r(17)),
           g = s.__importStar(r(15)),
@@ -654,8 +661,8 @@
                   .default
             );
             return this.httpService.get(e).pipe(
-              (0, p.map)(({ data: e }) => e.response.docs),
-              (0, p.map)((e) =>
+              (0, c.map)(({ data: e }) => e.response.docs),
+              (0, c.map)((e) =>
                 e.map((e) => ({
                   version: e.v,
                   versionTags: [
@@ -671,7 +678,7 @@
                   downloadLink: this.createDownloadLink(e.v),
                 }))
               ),
-              (0, p.map)(
+              (0, c.map)(
                 (e) => (
                   this.filterVersionsByTags(e, ['stable'])
                     .sort((e, t) => (0, m.default)(e.version, t.version))
@@ -680,7 +687,7 @@
                   e
                 )
               ),
-              (0, p.catchError)(
+              (0, c.catchError)(
                 (e) => (
                   this.logger.log(
                     u.default.red(
@@ -695,7 +702,7 @@
           }
           search(e) {
             return this.getAll().pipe(
-              (0, p.map)((t) => this.filterVersionsByTags(t, e))
+              (0, c.map)((t) => this.filterVersionsByTags(t, e))
             );
           }
           isSelectedVersion(e) {
@@ -748,7 +755,7 @@
                 await this.httpService
                   .get(t, { responseType: 'stream' })
                   .pipe(
-                    (0, p.switchMap)(
+                    (0, c.switchMap)(
                       (t) =>
                         new Promise((i) => {
                           d.ensureDirSync(this.storage);
@@ -851,7 +858,7 @@
                     ? i
                     : Object,
                   'function' ==
-                  typeof (o = void 0 !== c.HttpService && c.HttpService)
+                  typeof (o = void 0 !== p.HttpService && p.HttpService)
                     ? o
                     : Object,
                   'function' ==
@@ -881,9 +888,9 @@
         var i, o, a, s, n;
         Object.defineProperty(t, '__esModule', { value: !0 }),
           (t.PassThroughService = void 0);
-        const c = r(3),
-          p = r(4),
-          l = c.__importDefault(r(9)),
+        const p = r(3),
+          c = r(4),
+          l = p.__importDefault(r(9)),
           d = r(26),
           g = r(6),
           h = r(16),
@@ -997,12 +1004,12 @@
         };
         (t.PassThroughService = y),
           (t.PassThroughService = y =
-            c.__decorate(
+            p.__decorate(
               [
-                (0, p.Injectable)(),
-                c.__param(0, (0, p.Inject)(u.LOGGER)),
-                c.__param(1, (0, p.Inject)(u.COMMANDER_PROGRAM)),
-                c.__metadata('design:paramtypes', [
+                (0, c.Injectable)(),
+                p.__param(0, (0, c.Inject)(u.LOGGER)),
+                p.__param(1, (0, c.Inject)(u.COMMANDER_PROGRAM)),
+                p.__metadata('design:paramtypes', [
                   'function' == typeof (i = void 0 !== u.LOGGER && u.LOGGER)
                     ? i
                     : Object,
@@ -1028,6 +1035,9 @@
               ],
               y
             ));
+      },
+      (e) => {
+        e.exports = require('proxy-agent');
       },
     ],
     t = {};
